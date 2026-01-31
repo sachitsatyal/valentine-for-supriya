@@ -318,6 +318,30 @@ div.stButton > button:first-child:hover {
     50% { transform: scale(1.2); }
 }
 
+/* Gift highlight styling */
+.gift-highlight {
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff6b9d 0%, #ffd700 50%, #ff6b9d 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: secret-shimmer 2s linear infinite;
+    padding: 0.5rem;
+    margin: 1rem 0;
+}
+
+.gift-warning {
+    display: block;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 107, 157, 0.2);
+    border-radius: 15px;
+    border: 1px dashed #ff6b9d;
+}
+
 /* Photo gallery styling */
 .gallery-title {
     font-family: 'Playfair Display', serif;
@@ -553,15 +577,7 @@ def get_countdown_to_valentines():
     return days, hours, minutes, seconds, is_valentines
 
 # ==================== SECRET MESSAGE CONFIG ====================
-SECRET_CODE = "MeroMutuSupriya"  # The secret word she needs to type
-SECRET_MESSAGE = """
-You found it, my love! 🎉
-
-Your valentine gift is Kitchen aid stand mixture.
-If you guess it in time, you can ask me to change it. 😘
-
-~ Your Sachit 💝
-"""
+SECRET_CODE = "meromutsupriya"  # lowercase for case-insensitive comparison
 
 # Photo messages dictionary - customize your messages here!
 photo_messages = {
@@ -762,8 +778,8 @@ elif st.session_state.page == 'gallery':
         
         secret_input = st.text_input(
             "Enter the magic word:",
-            key="MeroMutuSupriya",
-            placeholder="Hint: Three Words Together, starting word Capital, No Space, 15 letters 💕",
+            key="secret_code_input",
+            placeholder="Hint: Three Words Together, No Space, 15 letters 💕",
             label_visibility="collapsed"
         )
         
@@ -778,12 +794,30 @@ elif st.session_state.page == 'gallery':
     
     # Display secret message if unlocked
     if st.session_state.show_secret:
-        st.markdown(f"""
+        st.markdown("""
             <div class="secret-modal">
-                <p class="secret-emoji">🔓✨💕✨🔓</p>
-                <p class="secret-title">You Found Our Secret! 🎊</p>
+                <p class="secret-emoji">🔓✨🎁✨🔓</p>
+                <p class="secret-title">You Found The Secret! 🎊</p>
                 <p class="secret-text">
-                    {SECRET_MESSAGE.replace(chr(10), '<br>')}
+                    Your Valentine's Gift is...
+                </p>
+                <p class="secret-emoji">👩‍🍳🎂🍪🧁</p>
+                <p class="gift-highlight">✨ KitchenAid Stand Mixer ✨</p>
+                <p class="secret-text">
+                    Now you can bake all those amazing things<br>
+                    you've been dreaming about!<br><br>
+                    Cookies, cakes, bread, pasta dough...<br>
+                    and I get to eat them all! 🤤<br>
+                    <span style="font-size: 0.9rem;">(okay fine, I'll help too... maybe 😜)</span>
+                </p>
+                <div class="gift-warning">
+                    ⏰ <strong>BUT WAIT!</strong> ⏰<br>
+                    If you guess this before Valentine's Day,<br>
+                    you can ask me to change it! 😘
+                </div>
+                <p style="margin-top: 1.5rem; color: #ff80ab;">
+                    With all my love,<br>
+                    ~ Your Sachit 💝
                 </p>
                 <p class="secret-emoji">💍🌹💖🌹💍</p>
             </div>
