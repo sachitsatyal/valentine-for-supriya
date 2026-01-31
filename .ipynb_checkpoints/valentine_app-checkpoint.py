@@ -779,7 +779,7 @@ elif st.session_state.page == 'gallery':
         secret_input = st.text_input(
             "Enter the magic word:",
             key="secret_code_input",
-            placeholder="Hint: Three Words Together, No Space, 15 letters 💕",
+            placeholder="Hint: Three Words Together, first letter capital in all, No Space, 15 letters 💕",
             label_visibility="collapsed"
         )
         
