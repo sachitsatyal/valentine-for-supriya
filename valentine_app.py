@@ -554,15 +554,18 @@ def say_yes():
 # ==================== COUNTDOWN FUNCTION ====================
 def get_countdown_to_valentines():
     """Calculate time remaining until Valentine's Day"""
-    now = datetime.now()
+    from pytz import timezone
+    
+    central_tz = timezone('America/Chicago')
+    now = datetime.now(central_tz)
     current_year = now.year
     
-    # Valentine's Day this year
-    valentines = datetime(current_year, 2, 14, 23, 59, 59)
+    # Valentine's Day this year (end of the day)
+    valentines = central_tz.localize(datetime(current_year, 2, 14, 23, 59, 59))
     
     # If Valentine's Day has passed this year, use next year
     if now > valentines:
-        valentines = datetime(current_year + 1, 2, 14, 0, 0, 0)
+        valentines = central_tz.localize(datetime(current_year + 1, 2, 14, 23, 59, 59))
     
     # Calculate difference
     diff = valentines - now
