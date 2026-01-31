@@ -577,7 +577,7 @@ def get_countdown_to_valentines():
     return days, hours, minutes, seconds, is_valentines
 
 # ==================== SECRET MESSAGE CONFIG ====================
-SECRET_CODE = "meromutsupriya"  # lowercase for case-insensitive comparison
+SECRET_CODE = "meromutusupriya"  # lowercase for case-insensitive comparison
 
 # Photo messages dictionary - customize your messages here!
 photo_messages = {
