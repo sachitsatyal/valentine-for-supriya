@@ -311,7 +311,7 @@ photo_messages = {
     },
     "photo6": {
         "title": "You're Welcome 😏",
-        "message": "So... just a reminder of what you're getting here! 💪😂 Not only do you get a caring, loving, devoted boyfriend who would do anything for you... but ALSO this hot package! *flexes* 🏋️ It's basically a 2-in-1 deal - emotional support AND eye candy! You hit the jackpot, baby! 🎰🔥 Don't worry, this subscription is lifetime and non-refundable! 😘💝"
+        "message": "So... just a reminder of what you're getting here! 💪😂 Not only do you get a caring, loving, devoted boyfriend who would do anything for you... but ALSO this hot package and pretty much talented guy! *flexes* 🎨 🎸  It's basically a 2-in-1 deal - emotional support, talented dude AND an absolute eye candy! You hit the jackpot, baby! 🎰🔥 Don't worry, this subscription is lifetime and non-refundable! 😘💝"
     },
     "photo7": {
         "title": "My Absolute Favorite 🖤",
