@@ -2,6 +2,7 @@ import streamlit as st
 import random
 import base64
 from pathlib import Path
+from datetime import datetime
 
 # Page config
 st.set_page_config(
@@ -25,6 +26,77 @@ header {visibility: hidden;}
     background: linear-gradient(135deg, #ffeef8 0%, #fff5f5 50%, #fef0f5 100%);
 }
 
+/* ==================== PARALLAX BACKGROUND ==================== */
+.parallax-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+/* Parallax layer 1 - slow moving large hearts (back) */
+.parallax-layer-1 {
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    animation: parallax-scroll-slow 25s linear infinite;
+}
+
+.parallax-layer-1 .p-heart {
+    position: absolute;
+    font-size: 60px;
+    opacity: 0.08;
+    filter: blur(2px);
+}
+
+/* Parallax layer 2 - medium speed hearts (middle) */
+.parallax-layer-2 {
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    animation: parallax-scroll-medium 18s linear infinite;
+}
+
+.parallax-layer-2 .p-heart {
+    position: absolute;
+    font-size: 35px;
+    opacity: 0.15;
+    filter: blur(1px);
+}
+
+/* Parallax layer 3 - fast small hearts (front) */
+.parallax-layer-3 {
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    animation: parallax-scroll-fast 12s linear infinite;
+}
+
+.parallax-layer-3 .p-heart {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.25;
+}
+
+@keyframes parallax-scroll-slow {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+@keyframes parallax-scroll-medium {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
+@keyframes parallax-scroll-fast {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+}
+
 /* Floating hearts animation */
 .hearts-container {
     position: fixed;
@@ -34,7 +106,7 @@ header {visibility: hidden;}
     height: 100%;
     pointer-events: none;
     overflow: hidden;
-    z-index: 0;
+    z-index: 1;
 }
 
 .heart {
@@ -112,6 +184,138 @@ div.stButton > button:first-child {
 div.stButton > button:first-child:hover {
     transform: scale(1.1);
     box-shadow: 0 12px 35px rgba(233, 30, 99, 0.5);
+}
+
+/* ==================== COUNTDOWN STYLING ==================== */
+.countdown-container {
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
+    border-radius: 25px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 600px;
+    box-shadow: 0 10px 40px rgba(233, 30, 99, 0.2);
+    border: 2px solid #f8bbd9;
+}
+
+.countdown-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #c2185b;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.countdown-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.countdown-box {
+    background: linear-gradient(135deg, #e91e63 0%, #ff4081 100%);
+    border-radius: 15px;
+    padding: 1rem 1.5rem;
+    min-width: 80px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(233, 30, 99, 0.3);
+}
+
+.countdown-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+}
+
+.countdown-label {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.85rem;
+    color: #fce4ec;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.3rem;
+}
+
+.countdown-message {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    color: #ad1457;
+    text-align: center;
+    margin-top: 1.5rem;
+    font-style: italic;
+}
+
+/* ==================== SECRET EASTER EGG STYLING ==================== */
+.secret-modal {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 25px;
+    padding: 2.5rem;
+    margin: 2rem auto;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 100px rgba(233, 30, 99, 0.3);
+    border: 2px solid #e91e63;
+    position: relative;
+    overflow: hidden;
+}
+
+.secret-modal::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(233, 30, 99, 0.1) 0%, transparent 70%);
+    animation: secret-glow 4s ease-in-out infinite;
+}
+
+@keyframes secret-glow {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+}
+
+.secret-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #ff6b9d 0%, #ffd93d 50%, #ff6b9d 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    animation: secret-shimmer 3s linear infinite;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes secret-shimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+.secret-text {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    color: #fce4ec;
+    line-height: 1.9;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.secret-emoji {
+    font-size: 3rem;
+    text-align: center;
+    margin: 1rem 0;
+    animation: secret-pulse 2s ease-in-out infinite;
+}
+
+@keyframes secret-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
 }
 
 /* Photo gallery styling */
@@ -239,6 +443,40 @@ div.stButton > button:first-child:hover {
 </style>
 """, unsafe_allow_html=True)
 
+# ==================== PARALLAX BACKGROUND ====================
+def generate_parallax_hearts():
+    parallax_html = '<div class="parallax-container">'
+    
+    # Layer 1 - Large slow hearts (back)
+    parallax_html += '<div class="parallax-layer-1">'
+    for i in range(8):
+        left = random.randint(5, 95)
+        top = random.randint(0, 180)
+        parallax_html += f'<div class="p-heart" style="left: {left}%; top: {top}%;">💕</div>'
+    parallax_html += '</div>'
+    
+    # Layer 2 - Medium hearts (middle)
+    parallax_html += '<div class="parallax-layer-2">'
+    for i in range(12):
+        left = random.randint(5, 95)
+        top = random.randint(0, 180)
+        parallax_html += f'<div class="p-heart" style="left: {left}%; top: {top}%;">💖</div>'
+    parallax_html += '</div>'
+    
+    # Layer 3 - Small fast hearts (front)
+    parallax_html += '<div class="parallax-layer-3">'
+    for i in range(18):
+        left = random.randint(5, 95)
+        top = random.randint(0, 180)
+        heart = random.choice(['💗', '💓', '💘', '💝'])
+        parallax_html += f'<div class="p-heart" style="left: {left}%; top: {top}%;">{heart}</div>'
+    parallax_html += '</div>'
+    
+    parallax_html += '</div>'
+    return parallax_html
+
+st.markdown(generate_parallax_hearts(), unsafe_allow_html=True)
+
 # Add music player using Streamlit's built-in audio
 audio_file = Path("song.mp3")
 if audio_file.exists():
@@ -274,6 +512,8 @@ if 'no_position' not in st.session_state:
     st.session_state.no_position = {'top': 50, 'left': 70}
 if 'no_clicks' not in st.session_state:
     st.session_state.no_clicks = 0
+if 'show_secret' not in st.session_state:
+    st.session_state.show_secret = False
 
 def move_no_button():
     """Move the No button to a random position"""
@@ -286,6 +526,42 @@ def move_no_button():
 def say_yes():
     """Handle Yes button click"""
     st.session_state.page = 'gallery'
+
+# ==================== COUNTDOWN FUNCTION ====================
+def get_countdown_to_valentines():
+    """Calculate time remaining until Valentine's Day"""
+    now = datetime.now()
+    current_year = now.year
+    
+    # Valentine's Day this year
+    valentines = datetime(current_year, 2, 14, 0, 0, 0)
+    
+    # If Valentine's Day has passed this year, use next year
+    if now > valentines:
+        valentines = datetime(current_year + 1, 2, 14, 0, 0, 0)
+    
+    # Calculate difference
+    diff = valentines - now
+    
+    days = diff.days
+    hours, remainder = divmod(diff.seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    
+    # Check if it's Valentine's Day
+    is_valentines = (now.month == 2 and now.day == 14)
+    
+    return days, hours, minutes, seconds, is_valentines
+
+# ==================== SECRET MESSAGE CONFIG ====================
+SECRET_CODE = "MeroMutuSupriya"  # The secret word she needs to type
+SECRET_MESSAGE = """
+You found it, my love! 🎉
+
+Your valentine gift is Kitchen aid stand mixture.
+If you guess it in time, you can ask me to change it. 😘
+
+~ Your Sachit 💝
+"""
 
 # Photo messages dictionary - customize your messages here!
 photo_messages = {
@@ -431,6 +707,92 @@ elif st.session_state.page == 'gallery':
     
     st.markdown('<h1 class="main-title">🎉 YAY! 🎉</h1>', unsafe_allow_html=True)
     st.markdown('<p class="celebration-text">I knew you\'d say yes! You just made me the happiest person! 💕</p>', unsafe_allow_html=True)
+    
+    # ==================== COUNTDOWN SECTION ====================
+    days, hours, minutes, seconds, is_valentines = get_countdown_to_valentines()
+    
+    if is_valentines:
+        # It's Valentine's Day!
+        st.markdown("""
+            <div class="countdown-container" style="background: linear-gradient(135deg, #e91e63 0%, #ff4081 100%);">
+                <p class="countdown-title" style="color: white; font-size: 2.5rem;">🎉 HAPPY VALENTINE'S DAY! 🎉</p>
+                <p style="font-family: 'Quicksand', sans-serif; color: #fce4ec; text-align: center; font-size: 1.3rem;">
+                    Today is OUR day, my love! 💕<br>
+                    Let's make it unforgettable! ✨
+                </p>
+            </div>
+        """, unsafe_allow_html=True)
+    else:
+        # Countdown to Valentine's Day
+        st.markdown(f"""
+            <div class="countdown-container">
+                <p class="countdown-title">⏰ Countdown to Valentine's Day 💝</p>
+                <div class="countdown-boxes">
+                    <div class="countdown-box">
+                        <p class="countdown-number">{days}</p>
+                        <p class="countdown-label">Days</p>
+                    </div>
+                    <div class="countdown-box">
+                        <p class="countdown-number">{hours}</p>
+                        <p class="countdown-label">Hours</p>
+                    </div>
+                    <div class="countdown-box">
+                        <p class="countdown-number">{minutes}</p>
+                        <p class="countdown-label">Minutes</p>
+                    </div>
+                    <div class="countdown-box">
+                        <p class="countdown-number">{seconds}</p>
+                        <p class="countdown-label">Seconds</p>
+                    </div>
+                </div>
+                <p class="countdown-message">Every second until then, I'll be loving you more and more... 💕</p>
+            </div>
+        """, unsafe_allow_html=True)
+    
+    # ==================== SECRET EASTER EGG ====================
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Subtle hint for the secret
+    with st.expander("💫 Psst... there's a secret hidden here... 💫", expanded=False):
+        st.markdown("""
+            <p style="font-family: 'Quicksand', sans-serif; color: #ad1457; font-size: 0.95rem; text-align: center;">
+                Type our special word to see your gift for valentine... 🔐
+            </p>
+        """, unsafe_allow_html=True)
+        
+        secret_input = st.text_input(
+            "Enter the magic word:",
+            key="MeroMutuSupriya",
+            placeholder="Hint: Three Words Together, starting word Capital, No Space, 15 letters 💕",
+            label_visibility="collapsed"
+        )
+        
+        if secret_input.lower().strip() == SECRET_CODE:
+            st.session_state.show_secret = True
+        elif secret_input and secret_input.lower().strip() != SECRET_CODE:
+            st.markdown("""
+                <p style="font-family: 'Quicksand', sans-serif; color: #e91e63; font-size: 0.9rem; text-align: center;">
+                    Not quite... try again, my love! 💝
+                </p>
+            """, unsafe_allow_html=True)
+    
+    # Display secret message if unlocked
+    if st.session_state.show_secret:
+        st.markdown(f"""
+            <div class="secret-modal">
+                <p class="secret-emoji">🔓✨💕✨🔓</p>
+                <p class="secret-title">You Found Our Secret! 🎊</p>
+                <p class="secret-text">
+                    {SECRET_MESSAGE.replace(chr(10), '<br>')}
+                </p>
+                <p class="secret-emoji">💍🌹💖🌹💍</p>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        # Button to close secret
+        if st.button("💝 Close Secret & Continue 💝", key="close_secret"):
+            st.session_state.show_secret = False
+            st.rerun()
     
     # Scroll indicator
     st.markdown("""
@@ -587,4 +949,5 @@ elif st.session_state.page == 'gallery':
     if st.button("← Start Over", key="reset"):
         st.session_state.page = 'question'
         st.session_state.no_clicks = 0
+        st.session_state.show_secret = False
         st.rerun()
