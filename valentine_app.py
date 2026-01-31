@@ -347,14 +347,14 @@ if st.session_state.page == 'question':
     
     # Messages that appear when trying to click No
     no_messages = [
-        "Oops! Try again 😜",
-        "Haha, you can't click me!",
-        "Not so fast! 💨",
-        "Are you sure? Think again!",
+        "Oops! Try again Nakkali 😜",
+        "Haha, you can't, I am your BF!",
+        "Not so fast fucchi! 💨",
+        "One more chance Bebu",
         "The No button is shy 🙈",
-        "Maybe try Yes instead? 😉",
-        "I don't think you meant that!",
-        "Nope, not happening! 💝",
+        "Hawa Manchey, Click YESS!! 😉",
+        "Jhukkera No thichyo baby le!",
+        "You are already mine anyway 💝",
         "Your finger slipped, right?",
         "The universe says YES! ✨"
     ]
