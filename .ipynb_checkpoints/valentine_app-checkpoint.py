@@ -562,7 +562,7 @@ elif st.session_state.page == 'gallery':
                 font-size: 2.5rem;
                 color: #e91e63;
             ">
-                Forever Yours 💕
+                Forever Yours : Sachit💕
             </p>
         </div>
     """, unsafe_allow_html=True)
