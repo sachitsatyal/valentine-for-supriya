@@ -772,7 +772,7 @@ elif st.session_state.page == 'gallery':
     with st.expander("💫 Psst... there's a secret hidden here... 💫", expanded=False):
         st.markdown("""
             <p style="font-family: 'Quicksand', sans-serif; color: #ad1457; font-size: 0.95rem; text-align: center;">
-                Type our special word to see your gift for valentine... 🔐
+                Type special words to see your gift for valentine... 🔐
             </p>
         """, unsafe_allow_html=True)
         
