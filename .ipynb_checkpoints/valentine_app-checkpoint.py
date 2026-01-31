@@ -10,58 +10,6 @@ st.set_page_config(
     layout="centered"
 )
 
-# Music player function
-def get_audio_player_with_controls(audio_path):
-    """Create audio player with play/pause button"""
-    if Path(audio_path).exists():
-        with open(audio_path, "rb") as f:
-            audio_bytes = f.read()
-        audio_base64 = base64.b64encode(audio_bytes).decode()
-        
-        audio_html = f"""
-            <audio id="bg-music" loop>
-                <source src="data:audio/mp3;base64,{audio_base64}" type="audio/mp3">
-            </audio>
-            <div onclick="toggleMusic()" id="music-btn" style="
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 9999;
-                background: linear-gradient(135deg, #e91e63 0%, #ff4081 100%);
-                padding: 12px 20px;
-                border-radius: 50px;
-                box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
-                cursor: pointer;
-                font-family: 'Quicksand', sans-serif;
-                color: white;
-                font-weight: 600;
-                transition: transform 0.2s;
-                user-select: none;
-            " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                <span id="music-icon">🎵</span> <span id="music-text">Play Music</span>
-            </div>
-            <script>
-                var isPlaying = false;
-                function toggleMusic() {{
-                    var audio = document.getElementById('bg-music');
-                    var icon = document.getElementById('music-icon');
-                    var text = document.getElementById('music-text');
-                    if (isPlaying) {{
-                        audio.pause();
-                        icon.innerHTML = '🎵';
-                        text.innerHTML = 'Play Music';
-                    }} else {{
-                        audio.play();
-                        icon.innerHTML = '⏸️';
-                        text.innerHTML = 'Pause';
-                    }}
-                    isPlaying = !isPlaying;
-                }}
-            </script>
-        """
-        return audio_html
-    return ""
-
 # Custom CSS for romantic styling
 st.markdown("""
 <style>
@@ -291,8 +239,20 @@ div.stButton > button:first-child:hover {
 </style>
 """, unsafe_allow_html=True)
 
-# Add music player (put your song.mp3 in the same folder as this script)
-st.markdown(get_audio_player_with_controls("song.mp3"), unsafe_allow_html=True)
+# Add music player using Streamlit's built-in audio
+audio_file = Path("song.mp3")
+if audio_file.exists():
+    st.markdown("""
+        <p style="
+            text-align: center;
+            font-family: 'Quicksand', sans-serif;
+            color: #e91e63;
+            font-weight: 600;
+            margin-bottom: 5px;
+        ">🎵 Our Song 💕</p>
+    """, unsafe_allow_html=True)
+    with open("song.mp3", "rb") as f:
+        st.audio(f.read(), format="audio/mp3", loop=True)
 
 # Floating hearts HTML
 hearts_html = """
