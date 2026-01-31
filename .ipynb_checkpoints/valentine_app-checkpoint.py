@@ -249,7 +249,7 @@ if audio_file.exists():
             color: #e91e63;
             font-weight: 600;
             margin-bottom: 5px;
-        ">🎵 Our Song 💕</p>
+        ">🎵 This Song Reminds Me of You 💕</p>
     """, unsafe_allow_html=True)
     with open("song.mp3", "rb") as f:
         st.audio(f.read(), format="audio/mp3", loop=True)
