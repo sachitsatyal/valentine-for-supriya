@@ -305,11 +305,11 @@ photo_messages = {
         "message": "Who needs fancy dates when we have THIS? 🥰 Our lazy days together are my favorite kind of days. No makeup, messy hair, just us being comfortable and silly together. You make even doing absolutely nothing feel like the most incredible adventure! Netflix, snacks, and you? That's my definition of paradise! 🍿📺💕 Every boring moment becomes special with you! ✨"
     },
     "photo9": {
-        "title": "A Message From Our Baby 🐱",
-        "message": "\"Meow! 🐾 Hi Mommy! It's me, your favorite furball! I just wanted to say that I love you SO much and I really really REALLY want you to be my Daddy's Valentine! 😺💕 He's pretty cool (he gives good head scratches), and you make him so happy! Plus, who else will give me treats?! Please say yes so we can be one happy family forever! Purrrr... 🐱❤️ Love, Your Baby\""
+        "title": "A Message From Our Baby Mochi 🐱",
+        "message": "\"Meow! Mochi here 🐾 Hi Mommy! It's me, your favorite but irritating pet ! I just wanted to say that I love you SO much and I really really REALLY want you to be my Daddy's Valentine! 😺💕 He's pretty cool (he gives good head scratches), and you make him so happy! Plus, who else will will I cuddle with?! Please say yes so we can be one happy family forever! Purrrr... 🐱❤️ Love, Your Baby\""
     },
     "photo10": {
-        "title": "Forever & Always 💍",
+        "title": "Supriya and Sachit: Forever & Always 💍",
         "message": "Look at us. Just look at us! 🥹💕 This is it. This is forever. We both know it, we both feel it. You're not just my girlfriend, you're my best friend, my soulmate, my everything. This photo isn't just a memory, it's a promise - a promise that no matter what life throws at us, we're in this TOGETHER. Forever isn't long enough with you, but it's a good start! 🌟💝∞"
     }
 }
@@ -317,7 +317,7 @@ photo_messages = {
 # QUESTION PAGE
 if st.session_state.page == 'question':
     st.markdown('<h1 class="main-title">Hey Beautiful 💕</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="subtitle">I have something special to ask you...</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subtitle">I have something special to ask my baby...</p>', unsafe_allow_html=True)
     
     # Add some cute decoration
     st.markdown("<br>", unsafe_allow_html=True)
