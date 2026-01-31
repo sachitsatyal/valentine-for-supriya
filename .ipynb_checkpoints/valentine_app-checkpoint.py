@@ -558,7 +558,7 @@ def get_countdown_to_valentines():
     current_year = now.year
     
     # Valentine's Day this year
-    valentines = datetime(current_year, 2, 14, 0, 0, 0)
+    valentines = datetime(current_year, 2, 14, 23, 59, 59)
     
     # If Valentine's Day has passed this year, use next year
     if now > valentines:
