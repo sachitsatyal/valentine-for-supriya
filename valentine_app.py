@@ -342,81 +342,50 @@ if st.session_state.page == 'question':
         "The universe says YES! ✨"
     ]
     
-    # Button container with custom positioning
-    button_container = st.container()
-    
-    with button_container:
-        # Create columns for button layout
-        col1, col2, col3 = st.columns([1, 1, 1])
-        
-        with col1:
-            st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("💖 YES! 💖", key="yes_btn", use_container_width=True):
-                say_yes()
-                st.rerun()
-        
-        # Display message if No was attempted
-        if st.session_state.no_clicks > 0:
-            message = no_messages[min(st.session_state.no_clicks - 1, len(no_messages) - 1)]
-            st.markdown(f"""
-                <div style="
-                    position: fixed;
-                    top: {st.session_state.no_position['top']}%;
-                    left: {st.session_state.no_position['left']}%;
-                    transform: translate(-50%, -50%);
-                    z-index: 1000;
-                    background: linear-gradient(135deg, #ffcdd2 0%, #f8bbd9 100%);
-                    padding: 8px 16px;
-                    border-radius: 20px;
-                    font-family: 'Quicksand', sans-serif;
-                    color: #c2185b;
-                    font-weight: 600;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-                ">
-                    {message}
-                </div>
-            """, unsafe_allow_html=True)
-    
-    # The escaping No button using JavaScript
-    st.markdown(f"""
-        <div id="no-button-container" style="
-            position: fixed;
-            top: {st.session_state.no_position['top']}%;
-            left: {st.session_state.no_position['left']}%;
-            transform: translate(-50%, -50%);
-            z-index: 999;
-            transition: all 0.3s ease;
-        ">
-            <button id="no-btn" style="
+    # Display message if No was attempted
+    if st.session_state.no_clicks > 0:
+        message = no_messages[min(st.session_state.no_clicks - 1, len(no_messages) - 1)]
+        st.markdown(f"""
+            <div style="
+                text-align: center;
+                background: linear-gradient(135deg, #ffcdd2 0%, #f8bbd9 100%);
+                padding: 12px 24px;
+                border-radius: 20px;
                 font-family: 'Quicksand', sans-serif;
-                font-size: 1.2rem;
+                color: #c2185b;
                 font-weight: 600;
-                padding: 0.8rem 2rem;
-                border-radius: 50px;
-                border: 2px solid #e91e63;
-                background: white;
-                color: #e91e63;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            " onmouseover="moveButton()" onclick="moveButton()">
-                No 😢
-            </button>
-        </div>
-        
-        <script>
-            function moveButton() {{
-                const btn = document.getElementById('no-button-container');
-                const maxX = window.innerWidth - 150;
-                const maxY = window.innerHeight - 100;
-                const newX = Math.random() * maxX;
-                const newY = Math.random() * maxY;
-                btn.style.position = 'fixed';
-                btn.style.left = newX + 'px';
-                btn.style.top = newY + 'px';
-                btn.style.transform = 'translate(0, 0)';
-            }}
-        </script>
-    """, unsafe_allow_html=True)
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                margin: 1rem auto;
+                max-width: 300px;
+            ">
+                {message}
+            </div>
+        """, unsafe_allow_html=True)
+    
+    # Button layout - No button moves to different position each click
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    # Create 5 columns for button positions
+    positions = [0, 1, 2, 3, 4]
+    no_position = st.session_state.no_clicks % 5
+    
+    # Make sure No is never in same position as Yes (Yes is always position 2)
+    if no_position == 2:
+        no_position = (no_position + 1) % 5
+    
+    cols = st.columns(5)
+    
+    # Yes button always in middle
+    with cols[2]:
+        if st.button("💖 YES! 💖", key="yes_btn", use_container_width=True):
+            say_yes()
+            st.rerun()
+    
+    # No button moves around
+    with cols[no_position]:
+        if st.button("No 😢", key="no_btn", use_container_width=True):
+            st.session_state.no_clicks += 1
+            st.rerun()
 
 # GALLERY PAGE
 elif st.session_state.page == 'gallery':
@@ -466,7 +435,12 @@ elif st.session_state.page == 'gallery':
     if photos_dir.exists():
         image_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.webp'}
         photos = [f for f in photos_dir.iterdir() if f.suffix.lower() in image_extensions]
-        photos.sort()
+        # Sort numerically by extracting numbers from filename
+        import re
+        def get_number(filename):
+            numbers = re.findall(r'\d+', filename.stem)
+            return int(numbers[0]) if numbers else 0
+        photos.sort(key=get_number)
         
         if photos:
             # Display photos with personalized messages
